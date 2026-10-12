@@ -421,16 +421,16 @@ git push
 
 ## 11. Completion Checklist
 
-- [ ] Understand the HTTP request and response lifecycle.
-- [ ] Understand GET, POST, PUT, PATCH, and DELETE.
-- [ ] Identify common HTTP status codes.
-- [ ] Understand HTTP headers.
-- [ ] Design resource-based REST endpoints.
-- [ ] Understand JSON data types.
-- [ ] Use `json.dumps()` and `json.loads()`.
-- [ ] Read and write JSON files.
-- [ ] Complete the exercises.
-- [ ] Commit and push the lesson to GitHub.
+- [x] Understand the HTTP request and response lifecycle.
+- [x] Understand GET, POST, PUT, PATCH, and DELETE.
+- [x] Identify common HTTP status codes.
+- [x] Understand HTTP headers.
+- [x] Design resource-based REST endpoints.
+- [x] Understand JSON data types.
+- [x] Use `json.dumps()` and `json.loads()`.
+- [x] Read and write JSON files.
+- [x] Complete the exercises.
+- [x] Commit and push the lesson to GitHub.
 
 ## 12. Key Takeaways
 

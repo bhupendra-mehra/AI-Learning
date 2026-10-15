@@ -3,13 +3,18 @@ from datetime import datetime, timedelta, timezone
 
 import jwt
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import (
+    OAuth2PasswordBearer,
+    HTTPBearer,
+    HTTPAuthorizationCredentials,
+)
 from jwt.exceptions import InvalidTokenError
 from pwdlib import PasswordHash
 from sqlalchemy.orm import Session
 
 from database import get_db
 from models import User
+
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
@@ -21,26 +26,32 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 password_hash = PasswordHash.recommended()
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
+
+# Option 1: Login with username and password.
+oauth2_scheme = OAuth2PasswordBearer(
+    tokenUrl="/auth/login",
+    scheme_name="OAuth2 Login",
+    auto_error=False,
+)
+# Option 2: Direct JWT bearer token authorization.
+bearer_scheme = HTTPBearer(
+    scheme_name="JWT Token",
+    bearerFormat="JWT",
+    auto_error=False,
+)
 
 
-# 1. Convert a plain password into a secure hash.
 def get_password_hash(password: str) -> str:
     return password_hash.hash(password)
 
 
-# 2. Check a password against its stored hash.
 def verify_password(
     plain_password: str,
     hashed_password: str,
 ) -> bool:
-    return password_hash.verify(
-        plain_password,
-        hashed_password,
-    )
+    return password_hash.verify(plain_password, hashed_password)
 
 
-# 3. Find a user and verify their password.
 def authenticate_user(
     db: Session,
     email: str,
@@ -51,16 +62,12 @@ def authenticate_user(
     if user is None:
         return None
 
-    if not verify_password(
-        password,
-        user.hashed_password,
-    ):
+    if not verify_password(password, user.hashed_password):
         return None
 
     return user
 
 
-# 4. Create a signed JWT with an expiration time.
 def create_access_token(
     data: dict,
     expires_delta: timedelta | None = None,
@@ -68,7 +75,8 @@ def create_access_token(
     to_encode = data.copy()
 
     expire = datetime.now(timezone.utc) + (
-        expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        expires_delta
+        or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     )
 
     to_encode.update({"exp": expire})
@@ -80,16 +88,25 @@ def create_access_token(
     )
 
 
-# 5. Validate the token and return the authenticated user.
 def get_current_user(
-    token: str = Depends(oauth2_scheme),
+    oauth_token: str | None = Depends(oauth2_scheme),
+    bearer_credentials: HTTPAuthorizationCredentials | None = Depends(
+        bearer_scheme
+    ),
     db: Session = Depends(get_db),
 ) -> User:
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
+    token = (
+        bearer_credentials.credentials
+        if bearer_credentials is not None
+        else oauth_token
     )
+
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Not authenticated",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
     try:
         payload = jwt.decode(
@@ -101,14 +118,26 @@ def get_current_user(
         email = payload.get("sub")
 
         if not isinstance(email, str) or not email:
-            raise credentials_exception
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token payload",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
 
     except InvalidTokenError:
-        raise credentials_exception
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
     user = db.query(User).filter(User.email == email).first()
 
     if user is None:
-        raise credentials_exception
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="User not found",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
     return user

@@ -27,7 +27,9 @@ class StudentPatch(BaseModel):
         if not self.model_fields_set:
             raise ValueError("At least one field must be provided")
         if any(getattr(self, field) is None for field in self.model_fields_set):
-            raise ValueError("Fields cannot be null; omit fields you do not want to update")
+            raise ValueError(
+                "Fields cannot be null; omit fields you do not want to update"
+            )
         return self
 
 

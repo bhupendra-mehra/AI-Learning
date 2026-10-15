@@ -133,7 +133,7 @@ From the repository root:
 
 ```bash
 git status
-git add python/05-api-development/.github/workflows/python-ci.yml
+git add AI-Learning/.github/workflows/python-ci.yml
 git add python/05-api-development/lessons/06-github-cicd/README.md
 git commit -m "feat: add Python API CI workflow"
 git push

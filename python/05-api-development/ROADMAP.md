@@ -225,7 +225,7 @@ Run a repeatable automated test suite and verify API functionality, validation, 
 
 ### Practical Exercises
 
-- Create `.github/workflows/python-ci.yml`.
+- Create `.github/workflows/python-ci.yml` inside root directory AI-Learning.
 - Run tests on every push.
 - Run tests and linting on pull requests.
 - Fix a deliberately failing test.

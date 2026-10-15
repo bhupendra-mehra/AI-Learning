@@ -141,6 +141,153 @@ git push
 
 Adjust the paths if your repository layout differs.
 
+Great! Now that all your Student Management API tests pass, let's finish Lesson 06 — GitHub Actions CI/CD.
+
+We'll keep the existing practice lessons unchanged and configure CI to check only your standalone project. The workflow will run Ruff formatting, linting, and pytest whenever relevant project code is pushed or a pull request is opened.
+
+## Step 1 — Run the final local checks
+
+From your `AI-Learning` repository root:
+
+```
+cd /var/www/html/AI-Learning
+
+cd python/05-api-development
+
+ruff format --check projects/student-management-api/app projects/student-management-api/tests
+ruff check projects/student-management-api/app projects/student-management-api/tests
+pytest -v
+```
+
+All three commands should pass. If Ruff reports issues, fix them only in the standalone project rather than formatting all the practice lessons.
+
+## Step 2 — Create the GitHub Actions workflow
+
+Important: GitHub discovers workflows only from `.github/workflows/` at the repository root. For your repository, use:
+
+`AI-Learning/.github/workflows/python-ci.yml`
+
+If you currently have a workflow inside `python/05-api-development/.github/workflows/`, move it to the repository-level folder.
+
+Create the file:
+
+```
+cd /var/www/html/AI-Learning
+
+mkdir -p .github/workflows
+touch .github/workflows/python-ci.yml
+```
+
+Add this complete workflow:
+
+```
+
+name: Student Management API CI
+
+on:
+  push:
+    paths:
+      - "python/05-api-development/projects/student-management-api/**"
+      - "python/05-api-development/pyproject.toml"
+      - "python/05-api-development/requirements.txt"
+      - ".github/workflows/python-ci.yml"
+  pull_request:
+    paths:
+      - "python/05-api-development/projects/student-management-api/**"
+      - "python/05-api-development/pyproject.toml"
+      - "python/05-api-development/requirements.txt"
+      - ".github/workflows/python-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Lint and Test API
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: python/05-api-development
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r projects/student-management-api/requirements.txt
+          pip install ruff pytest
+
+      - name: Check formatting
+        run: |
+          ruff format --check \
+            projects/student-management-api/app \
+            projects/student-management-api/tests
+
+      - name: Run lint checks
+        run: |
+          ruff check \
+            projects/student-management-api/app \
+            projects/student-management-api/tests
+
+      - name: Run tests
+        run: pytest -v
+
+```
+
+This configuration assumes your root `pyproject.toml` contains the pytest settings we added earlier:
+
+```
+[tool.pytest.ini_options]
+testpaths = ["projects/student-management-api/tests"]
+pythonpath = ["projects/student-management-api"]
+```
+
+## Step 3 — Commit and push
+
+From the repository root:
+
+```
+git status
+git add .github/workflows/python-ci.yml
+git add python/05-api-development/pyproject.toml
+git add python/05-api-development/projects/student-management-api/
+git commit -m "ci: automate Student Management API checks"
+git push
+```
+
+Only stage the files that actually changed. Review `git diff --cached` before committing.
+
+## Step 4 — Verify CI on GitHub
+
+Formatting
+
+Only the standalone project's application and test files are checked.
+
+Linting
+
+Ruff validates only the selected project files.
+
+Tests
+
+Pytest uses the root configuration to discover only the project's tests.
+
+Open your GitHub repository, select Actions, and inspect the `Student Management API CI` run.
+
+One detail to remember: the workflow's `paths` filters control when CI starts, while Ruff's arguments and pytest's configuration control what gets checked.
+
+Once this workflow passes on GitHub, your Lesson 06 CI implementation is complete. The next learning step is deployment: running the FastAPI project in a production-like environment.
+
 ## Next Step
 
 Proceed to production deployment and learn how to configure, deploy, and monitor a FastAPI application safely.
+
+

@@ -1,10 +1,5 @@
+from contextlib import asynccontextmanager
 from datetime import timedelta
-
-from fastapi import Depends,FastAPI, HTTPException, status
-from fastapi.security import OAuth2PasswordRequestForm
-from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import Session
-from sqlalchemy import select
 
 from auth import (
     ACCESS_TOKEN_EXPIRE_MINUTES,
@@ -14,9 +9,13 @@ from auth import (
     get_password_hash,
 )
 from database import Base, engine, get_db
+from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
 from models import Student, User
 from schemas import StudentCreate, StudentResponse, Token, UserCreate
-from contextlib import asynccontextmanager
+from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
 
 
 @asynccontextmanager
@@ -122,9 +121,7 @@ def register_user(
 ):
     user = User(
         email=str(user_data.email),
-        hashed_password=get_password_hash(
-            user_data.password
-        ),
+        hashed_password=get_password_hash(user_data.password),
     )
 
     db.add(user)
@@ -161,9 +158,7 @@ def login(
 
     access_token = create_access_token(
         data={"sub": user.email},
-        expires_delta=timedelta(
-            minutes=ACCESS_TOKEN_EXPIRE_MINUTES
-        ),
+        expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
     )
 
     return {

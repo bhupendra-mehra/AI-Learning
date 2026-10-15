@@ -1,47 +1,50 @@
-from fastapi import FastAPI,HTTPException,status
-from pydantic import BaseModel,Field
+from fastapi import FastAPI, HTTPException, status
+from pydantic import BaseModel, Field
 
 app = FastAPI(title="Student Management API")
 
+
 class StudentCreate(BaseModel):
-    name:str = Field(min_length=2,max_length=100)
-    email:str
-    age :int = Field(ge=1,le=120)
+    name: str = Field(min_length=2, max_length=100)
+    email: str
+    age: int = Field(ge=1, le=120)
+
 
 class Student(StudentCreate):
-    id:int
+    id: int
 
 
-students : dict[int,Student] = {}
+students: dict[int, Student] = {}
 next_student_id = 1
+
 
 @app.get("/")
 def home():
-    return {"message" : "Student Management API is running"}
+    return {"message": "Student Management API is running"}
 
-@app.get("/students",response_model=list[Student])
+
+@app.get("/students", response_model=list[Student])
 def get_students(min_age: int | None = None):
-    student_list =  list(students.values())
+    student_list = list(students.values())
 
     if min_age is not None:
-        student_list = [
-            student for student in student_list
-            if student.age >= min_age
-        ]
+        student_list = [student for student in student_list if student.age >= min_age]
 
     return student_list
 
-@app.get("/student/{student_id}",response_model=Student)
-def get_student(student_id : int):
+
+@app.get("/student/{student_id}", response_model=Student)
+def get_student(student_id: int):
     student = students.get(student_id)
 
     if student is None:
         raise HTTPException(
-             status_code=status.HTTP_404_NOT_FOUND,
+            status_code=status.HTTP_404_NOT_FOUND,
             detail="Student not found",
         )
 
     return student
+
 
 @app.post(
     "/students",

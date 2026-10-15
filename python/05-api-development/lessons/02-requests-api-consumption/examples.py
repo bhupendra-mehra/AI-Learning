@@ -1,8 +1,8 @@
 import requests
 
-#Read Data
+# Read Data
 
-url ="https://jsonplaceholder.typicode.com/posts/1"
+url = "https://jsonplaceholder.typicode.com/posts/1"
 
 # response = requests.get(url,timeout=10,verify=False)
 
@@ -10,7 +10,7 @@ url ="https://jsonplaceholder.typicode.com/posts/1"
 # print(f"Response : {response.json()}")
 
 
-#Post Data
+# Post Data
 
 url = "https://jsonplaceholder.typicode.com/posts"
 
@@ -25,7 +25,7 @@ payload = {
 # print(f"Status code : {response.status_code}")
 # print(f"Response : {response.json()}")
 
-#6. Query Parameters
+# 6. Query Parameters
 
 url = "https://jsonplaceholder.typicode.com/posts"
 
@@ -44,7 +44,7 @@ params = {
 # for post in posts:
 #     print(post["id"],post["title"])
 
-#7. Request Headers
+# 7. Request Headers
 
 url = "https://jsonplaceholder.typicode.com/posts/1"
 
@@ -63,9 +63,9 @@ headers = {
 
 # print(response.json())
 
-#8. Handling HTTP Errors
+# 8. Handling HTTP Errors
 
-#url = "https://jsonplaceholder.typicode.com/posts/1"
+# url = "https://jsonplaceholder.typicode.com/posts/1"
 url = "https://jsonplaceholder.typicode.com/invalid-endpoint"
 
 # try:
@@ -85,13 +85,13 @@ url = "https://jsonplaceholder.typicode.com/invalid-endpoint"
 # except requests.exceptions.RequestException as error:
 #     print(f"Request failed: {error}")
 
-#9. Validate API Responses
+# 9. Validate API Responses
 
 
 url = "https://jsonplaceholder.typicode.com/posts/1"
 
 try:
-    response = requests.get(url, timeout=10,verify=False)
+    response = requests.get(url, timeout=10, verify=False)
     response.raise_for_status()
 
     post = response.json()

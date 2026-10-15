@@ -321,6 +321,10 @@ From your Lesson 04 directory, run:
 ```
 cd /var/www/html/AI-Learning/python/05-api-development/lessons/04-database-auth
 
+print from python
+
+python -c "import secrets; print(secrets.token_hex(32))"
+
 export SECRET_KEY="$(openssl rand -hex 32)"
 ```
 

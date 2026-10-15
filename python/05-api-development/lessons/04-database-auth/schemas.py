@@ -12,6 +12,7 @@ class StudentResponse(StudentCreate):
 
     model_config = ConfigDict(from_attributes=True)
 
+
 class UserCreate(BaseModel):
     email: EmailStr
     password: str = Field(min_length=8, max_length=128)

@@ -67,10 +67,7 @@ os.environ.setdefault(
     "test-only-secret-key-do-not-use-in-production",
 )
 
-API_DIR = (
-    Path(__file__).resolve().parents[1]
-    / "04-database-auth"
-)
+API_DIR = Path(__file__).resolve().parents[1] / "04-database-auth"
 
 sys.path.insert(0, str(API_DIR))
 
@@ -137,9 +134,7 @@ def test_home(client):
     response = client.get("/")
 
     assert response.status_code == 200
-    assert response.json()["message"] == (
-        "Student Management API is running"
-    )
+    assert response.json()["message"] == ("Student Management API is running")
 
 
 def test_list_students(client):

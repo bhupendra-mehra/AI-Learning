@@ -255,9 +255,7 @@ def get_post(post_id: int) -> dict:
         return data
 
     except requests.exceptions.RequestException as error:
-        raise RuntimeError(
-            f"Unable to retrieve post {post_id}"
-        ) from error
+        raise RuntimeError(f"Unable to retrieve post {post_id}") from error
 
 
 if __name__ == "__main__":

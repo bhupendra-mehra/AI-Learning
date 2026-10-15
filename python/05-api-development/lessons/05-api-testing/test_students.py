@@ -62,7 +62,6 @@ def test_create_student_with_authentication(client):
     assert response.json()["name"] == "Priya Patel"
 
 
-
 def test_invalid_student_data(client):
     # Register a user.
     client.post(

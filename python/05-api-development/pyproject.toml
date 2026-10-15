@@ -1,0 +1,3 @@
+[tool.pytest.ini_options]
+testpaths = ["projects/student-management-api/tests"]
+pythonpath = ["projects/student-management-api"]

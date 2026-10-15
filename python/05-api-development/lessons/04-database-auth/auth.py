@@ -1,20 +1,18 @@
 import os
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import jwt
+from database import get_db
 from fastapi import Depends, HTTPException, status
 from fastapi.security import (
-    OAuth2PasswordBearer,
-    HTTPBearer,
     HTTPAuthorizationCredentials,
+    HTTPBearer,
+    OAuth2PasswordBearer,
 )
 from jwt.exceptions import InvalidTokenError
+from models import User
 from pwdlib import PasswordHash
 from sqlalchemy.orm import Session
-
-from database import get_db
-from models import User
-
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
@@ -74,9 +72,8 @@ def create_access_token(
 ) -> str:
     to_encode = data.copy()
 
-    expire = datetime.now(timezone.utc) + (
-        expires_delta
-        or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    expire = datetime.now(UTC) + (
+        expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     )
 
     to_encode.update({"exp": expire})
@@ -90,9 +87,7 @@ def create_access_token(
 
 def get_current_user(
     oauth_token: str | None = Depends(oauth2_scheme),
-    bearer_credentials: HTTPAuthorizationCredentials | None = Depends(
-        bearer_scheme
-    ),
+    bearer_credentials: HTTPAuthorizationCredentials | None = Depends(bearer_scheme),
     db: Session = Depends(get_db),
 ) -> User:
     token = (

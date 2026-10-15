@@ -298,6 +298,77 @@ Tasks:
 
 Use a separate user model and password field rather than adding passwords to the student model.
 
+Set `SECRET_KEY` in your Part 5 API project's `.env` file, not directly in `auth.py`. This key is used to sign and verify JWT tokens.
+
+Your project should keep the secret outside GitHub so it is not exposed when you push your code.
+
+## 1. Generate a secure secret key
+
+From your Python virtual environment, run:
+
+```
+python -c "import secrets; print(secrets.token_urlsafe(32))"
+```
+
+This generates a cryptographically secure random secret. Copy the output for your local configuration.
+
+## 2. Set `SECRET_KEY` for your current project
+
+Your existing `auth.py` reads the key using `os.getenv("SECRET_KEY")`, so the simplest approach is to set it in the terminal before starting FastAPI.
+
+From your Lesson 04 directory, run:
+
+```
+cd /var/www/html/AI-Learning/python/05-api-development/lessons/04-database-auth
+
+export SECRET_KEY="$(openssl rand -hex 32)"
+```
+
+Verify that it is set without displaying the secret:
+
+```
+python -c "import os; print('SECRET_KEY configured:', bool(os.getenv('SECRET_KEY')))"
+```
+
+Expected output:
+
+```
+SECRET_KEY configured: True
+```
+
+Start FastAPI in the same terminal session:
+
+```
+../../.venv/bin/python -m uvicorn main:app --reload
+```
+
+This environment variable remains available in that terminal session. If you open a new terminal, set it again.
+
+## 3. Alternative: Store it in `.env`
+
+If you prefer persistent local configuration, create this file:
+
+`python/05-api-development/lessons/04-database-auth/.env`
+
+```
+SECRET_KEY=your-generated-secret-key
+```
+
+Generate the value using Step 1 above and replace the placeholder.
+
+Install `python-dotenv` if needed:
+
+```
+../../.venv/bin/pip install python-dotenv
+```
+
+Then load the file near the top of `auth.py`, before calling `os.getenv()`:
+
+```
+import osfrom dotenv import load_dotenvload_dotenv()SECRET_KEY = os.getenv("SECRET_KEY")if not SECRET_KEY:    raise RuntimeError("SECRET_KEY is not configured")
+```
+
+
 ## 10. Completion Checklist
 
 - [x] Install SQLAlchemy and authentication dependencies.

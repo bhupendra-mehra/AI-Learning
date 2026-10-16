@@ -68,9 +68,6 @@ part-05-api-development/
 │           ├── test_auth.py
 │           └── test_health.py
 │
-└── .github/
-    └── workflows/
-        └── python-ci.yml
 ```
 
 The structure will be created incrementally as the lessons progress. Avoid creating empty files before they are needed.

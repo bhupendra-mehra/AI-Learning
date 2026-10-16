@@ -243,6 +243,112 @@ The repository automatically validates code changes and reports failed checks th
 
 ---
 
+## Lesson 07 — Production Readiness
+
+### Topics
+- Environment variables and application configuration.
+- Secure secret-key generation and management.
+- `.env` and `.env.example` files.
+- Running FastAPI without development reload mode.
+- Health-check endpoint verification.
+- Database persistence and configuration.
+- Database migrations with Alembic.
+- Health checks versus readiness and liveness checks.
+- Logging and error handling.
+- API security and HTTPS considerations.
+- Production-readiness checklist.
+
+### Practical Exercises
+- Configure environment variables for the API.
+- Generate and configure a secure `SECRET_KEY`.
+- Verify application startup and health-check endpoints.
+- Check database configuration and data persistence.
+- Run pytest and Ruff checks.
+- Review security settings and production configuration.
+
+### Deliverables
+- Production-ready environment configuration.
+- Updated project configuration and documentation.
+- Production-readiness checklist.
+
+### Completion Criteria
+Configure the API securely, verify its health and database setup, and identify the essential requirements for production deployment.
+
+---
+
+## Lesson 08 — Dockerizing the Student Management API
+
+### Topics
+- Docker fundamentals for Python applications.
+- Writing a Dockerfile for FastAPI.
+- Selecting and configuring a Python base image.
+- Installing dependencies inside a container.
+- Using `.dockerignore`.
+- Configuring environment variables in Docker.
+- Running FastAPI inside a container.
+- Docker Compose for application management.
+- Persistent database storage using Docker volumes.
+- Container logs, health checks, and restart policies.
+- Running containers as a non-root user.
+- Building, starting, stopping, and troubleshooting containers.
+
+### Practical Exercises
+- Create a Dockerfile for the Student Management API.
+- Configure `.dockerignore`.
+- Create a Docker Compose configuration.
+- Build and run the API using Docker Compose.
+- Verify `/docs` and `/health`.
+- Register a user and create a student through the containerized API.
+- Restart the container and verify database persistence.
+- Inspect logs and troubleshoot common container issues.
+
+### Deliverables
+- `Dockerfile`
+- `.dockerignore`
+- `docker-compose.yml`
+- Updated project documentation with Docker instructions.
+- Working containerized Student Management API.
+
+### Completion Criteria
+Build and run the API using Docker Compose, verify its endpoints, and confirm that database records persist across container restarts.
+
+---
+
+## Lesson 09 — Deployment
+
+### Topics
+- Deployment fundamentals and hosting options.
+- Local containers versus cloud deployment.
+- Production environment variables and secrets.
+- Production database configuration.
+- Deploying a Dockerized FastAPI application.
+- Configuring application ports and host binding.
+- HTTPS and secure API access.
+- Database persistence and backups.
+- Application logs and health monitoring.
+- Deployment troubleshooting.
+- Updating and redeploying application versions.
+- Final production deployment checklist.
+
+### Practical Exercises
+- Choose a suitable deployment platform.
+- Prepare the API configuration for deployment.
+- Deploy the Dockerized Student Management API.
+- Configure production environment variables.
+- Verify API endpoints and authentication after deployment.
+- Test CRUD operations against the deployed API.
+- Review logs and troubleshoot a deployment issue.
+- Document deployment, update, and recovery steps.
+
+### Deliverables
+- Deployed Student Management API.
+- Production configuration instructions.
+- Deployment and verification documentation.
+- Final project README with local and deployment setup instructions.
+
+### Completion Criteria
+Deploy the Student Management API to a suitable hosting environment, verify
+
 ## Mini Project — Student Management REST API
 
 ### Objective

@@ -1,0 +1,14 @@
+{
+    "total_products": 4,
+    "total_quantity": 12,
+    "total_sales": 3365.0,
+    "highest_sale": {
+        "Product": "Laptop",
+        "Amount": 2400.0
+    },
+    "lowest_sale": {
+        "Product": "Mouse",
+        "Amount": 125.0
+    },
+    "average_sale": 841.25
+}

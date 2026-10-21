@@ -1,0 +1,8 @@
+========== SALES REPORT ==========
+Total Products :4
+Total Quantity :12
+Total Sales : 3365.0
+Highest Sale :Laptop ($2400.0)
+Lowest Sale :Mouse ($125.0)
+Average Sale : 841.25
+=================================

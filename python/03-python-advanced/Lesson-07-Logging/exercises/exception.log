@@ -1,0 +1,6 @@
+2026-08-23 17:22:25,508 - ERROR - An error occurred - 13
+Traceback (most recent call last):
+  File "/var/www/html/advanced-python/Lesson-07-Logging/exercises/modules-07.py", line 11, in <module>
+    restul = number / 0
+             ~~~~~~~^~~
+ZeroDivisionError: division by zero

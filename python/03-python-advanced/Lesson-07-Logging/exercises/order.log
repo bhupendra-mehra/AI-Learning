@@ -1,0 +1,4 @@
+2026-08-23 17:29:00,389 - INFO - Processing order ORD12345
+2026-08-23 17:29:00,390 - INFO - Order ORD12345 processed successfully
+2026-08-23 17:29:00,390 - INFO - Processing order ORD12346
+2026-08-23 17:29:00,390 - WARNING - Invalid amount for order ORD12346: 0

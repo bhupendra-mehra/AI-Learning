@@ -1,0 +1,12 @@
+2026-08-23 17:43:30,584 - INFO - Processing order ORD1001
+2026-08-23 17:43:30,584 - INFO - Order ORD1001 processed successfully
+2026-08-23 17:43:30,584 - INFO - Processing order ORD1002
+2026-08-23 17:43:30,584 - WARNING - Invalid amount for order ORD1002: 0
+2026-08-23 17:43:30,584 - INFO - Processing order ORD1003
+2026-08-23 17:43:30,584 - INFO - Order ORD1003 processed successfully
+2026-08-23 17:46:06,285 - INFO - Processing order ORD1001
+2026-08-23 17:46:06,285 - INFO - Order ORD1001 processed successfully
+2026-08-23 17:46:06,285 - INFO - Processing order ORD1002
+2026-08-23 17:46:06,285 - WARNING - Invalid amount for order ORD1002: 0
+2026-08-23 17:46:06,285 - INFO - Processing order ORD1003
+2026-08-23 17:46:06,285 - INFO - Order ORD1003 processed successfully

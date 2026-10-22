@@ -1,0 +1,9 @@
+2026-08-23 17:07:19,045 - INFO - Application started
+2026-08-23 17:07:19,045 - WARNING - Low inventory
+2026-08-23 17:07:19,045 - ERROR - Payment failed
+2026-08-23 17:08:11,866 - INFO - __main__ - Application started
+2026-08-23 17:08:11,866 - WARNING - __main__ - Low inventory
+2026-08-23 17:08:11,866 - ERROR - __main__ - Payment failed
+2026-08-23 17:08:55,101 - INFO - __main__ - Application started
+2026-08-23 17:08:55,101 - WARNING - __main__ - Low inventory
+2026-08-23 17:08:55,101 - ERROR - __main__ - Payment failed

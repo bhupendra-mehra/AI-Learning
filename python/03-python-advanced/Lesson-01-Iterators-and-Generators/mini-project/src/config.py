@@ -1,0 +1,5 @@
+TOTAL_PRODUCTS = 10000
+EXPORT_FILE = "output/products.txt"
+DEFAULT_CATEGORY = "Electronics"
+MIN_PRICE = 1000
+IN_STOCK_ONLY = True

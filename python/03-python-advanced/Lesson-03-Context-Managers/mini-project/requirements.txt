@@ -1,0 +1,5 @@
+# This project currently uses only Python's Standard Library.
+# No external dependencies are required.
+time
+os
+functools

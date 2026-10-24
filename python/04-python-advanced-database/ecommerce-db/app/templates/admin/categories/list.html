@@ -1,0 +1,166 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+
+<div class="page-actions">
+
+    <div>
+
+        <h2 class="page-title">
+            Categories
+        </h2>
+
+        <p class="page-subtitle">
+            Manage categories
+        </p>
+
+    </div>
+
+
+    <div class="page-actions-right">
+
+         <a href="{{ url_for('admin_categories.create_category') }}" class="btn btn-primary">
+        Add Category
+    </a>
+
+    </div>
+
+</div>
+<div class="admin-card">
+<div class="table-container">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Products</th>
+                <th class="actions">Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for category in pagination.items %}
+            <tr>
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
+                <td>{{ category.description or "-" }}</td>
+                <td>{{ category.products|length }}</td>
+                <td class="actions">
+                    <div class="table-actions">
+                        <a class="btn btn-outline"
+                            href="{{ url_for('admin_categories.edit_category', category_id=category.id) }}">
+                            Edit
+                        </a>
+                        <form method="POST"
+                            action="{{ url_for('admin_categories.delete_category', category_id=category.id) }}"
+                            onsubmit="return confirm('Delete this category?');" style="display:inline">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5">No categories found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- Pagination information -->
+
+    {% if pagination.total > 0 %}
+
+    <div class="page-subtitle">
+
+        Showing
+        {{ pagination.first }}
+        -
+        {{ pagination.last }}
+        of
+        {{ pagination.total }}
+        categories
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- Pagination navigation -->
+
+    {% if pagination.pages > 1 %}
+
+    <div class="pagination">
+
+        {% if pagination.has_prev %}
+
+        <a href="{{ url_for(
+                        'admin_categories.list_categories',
+                        page=pagination.prev_num
+                    ) }}">
+
+            Previous
+
+        </a>
+
+        {% endif %}
+
+
+        {% for page_num in pagination.iter_pages(
+        left_edge=1,
+        left_current=2,
+        right_current=2,
+        right_edge=1
+        ) %}
+
+        {% if page_num %}
+
+        {% if page_num == pagination.page %}
+
+        <span class="active">
+            {{ page_num }}
+        </span>
+
+        {% else %}
+
+        <a href="{{ url_for(
+                                'admin_categories.list_categories',
+                                page=page_num
+                            ) }}">
+
+            {{ page_num }}
+
+        </a>
+
+        {% endif %}
+
+        {% else %}
+
+        <span>
+            ...
+        </span>
+
+        {% endif %}
+
+        {% endfor %}
+
+
+        {% if pagination.has_next %}
+
+        <a href="{{ url_for(
+                        'admin_categories.list_categories',
+                        page=pagination.next_num
+                    ) }}">
+
+            Next
+
+        </a>
+
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+</div>
+</div>
+{% endblock %}

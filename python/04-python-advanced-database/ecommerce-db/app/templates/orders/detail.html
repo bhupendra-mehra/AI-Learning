@@ -1,0 +1,48 @@
+{% extends "storefront/base_store.html" %}
+
+{% block content %}
+<div class="orders-container">
+    <h1>Order #{{ order.id }}</h1>
+
+    <p>
+        Status:
+        <strong>{{ order.status|capitalize }}</strong>
+    </p>
+
+    <h2>Items</h2>
+
+    <table class="orders-table">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for item in order.items %}
+                <tr>
+                    <td>{{ item.product_id }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>
+                        ₹{{ "%.2f"|format(item.unit_price) }}
+                    </td>
+                    <td>
+                        ₹{{ "%.2f"|format(item.subtotal) }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>
+        Total: ₹{{ "%.2f"|format(order.total_amount) }}
+    </h2>
+
+    <a href="{{ url_for('orders.order_history') }}">
+        Back to My Orders
+    </a>
+</div>
+{% endblock %}

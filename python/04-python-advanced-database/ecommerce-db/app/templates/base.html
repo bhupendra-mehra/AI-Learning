@@ -1,0 +1,33 @@
+<nav>
+
+    <a href="{{ url_for('admin.home') }}">
+        Dashboard
+    </a>
+
+    <a href="{{ url_for('customers.list_customers') }}">
+        Customers
+    </a>
+
+    <a href="{{ url_for('categories.list_categories') }}">
+        Categories
+    </a>
+
+    <a href="{{ url_for('products.list_products') }}">
+        Products
+    </a>
+
+    <a href="{{ url_for('admin_orders.list_orders') }}">
+        Orders
+    </a>
+
+    <form method="POST"
+          action="{{ url_for('admin_auth.logout') }}"
+          style="display:inline;">
+
+        <button type="submit">
+            Logout
+        </button>
+
+    </form>
+
+</nav>

@@ -1,0 +1,33 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+<h2>
+    {{ "Edit Category" if category else "Add Category" }}
+</h2>
+<div class="admin-card">
+    <form class="admin-form" method="POST" action="{{
+          url_for('admin_categories.edit_category', category_id=category.id)
+          if category else url_for('admin_categories.create_category')
+      }}">
+
+        <div class="form-group">
+            <label for="name">Category Name</label>
+            <input type="text" id="name" name="name"
+                value="{{ request.form.get('name', category.name if category else '') }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description"
+                name="description">{{ request.form.get('description', category.description if category else '') }}</textarea>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                {{ "Update Category" if category else "Create Category" }}
+            </button>
+
+            <a href="{{ url_for('admin_categories.list_categories') }}" class="btn btn-outline">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

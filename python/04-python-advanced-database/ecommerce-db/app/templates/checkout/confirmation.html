@@ -1,0 +1,40 @@
+{% extends "storefront/base_store.html" %}
+
+{% block content %}
+<div class="checkout-container">
+    <h1>Order Placed Successfully!</h1>
+
+    <p>Thank you for your purchase.</p>
+
+    <h2>Order #{{ order.id }}</h2>
+    <p>Status: {{ order.status }}</p>
+    <p>Total: ₹{{ "%.2f"|format(order.total_amount) }}</p>
+
+    <h3>Order Items</h3>
+
+    <table class="cart-table">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order.items %}
+            <tr>
+                <td>{{ item.product_id }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>₹{{ "%.2f"|format(item.unit_price) }}</td>
+                <td>₹{{ "%.2f"|format(item.subtotal) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('storefront.home') }}">
+        Continue Shopping
+    </a>
+</div>
+{% endblock %}

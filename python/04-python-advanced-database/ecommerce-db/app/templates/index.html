@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>E-Commerce Application</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f6f9;
+
+            color: #333;
+        }
+
+        .header {
+            background: #1f2937;
+
+            color: white;
+
+            padding: 20px 40px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+
+            font-size: 22px;
+        }
+
+        .header a {
+            color: white;
+
+            text-decoration: none;
+
+            margin-left: 20px;
+        }
+
+        .hero {
+            min-height: 70vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 40px;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero h2 {
+            font-size: 42px;
+
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+
+            color: #666;
+
+            margin-bottom: 35px;
+        }
+
+        .buttons {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-block;
+
+            padding: 13px 25px;
+
+            border-radius: 6px;
+
+            text-decoration: none;
+
+            font-size: 16px;
+        }
+
+        .store-button {
+            background: #2563eb;
+
+            color: white;
+        }
+
+        .admin-button {
+            background: #374151;
+
+            color: white;
+        }
+
+        .store-button:hover {
+            background: #1d4ed8;
+        }
+
+        .admin-button:hover {
+            background: #111827;
+        }
+
+        .footer {
+            text-align: center;
+
+            padding: 20px;
+
+            color: #777;
+
+            border-top: 1px solid #ddd;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <h1>
+        E-Commerce Application
+    </h1>
+
+    <nav>
+
+        <a href="{{ url_for('storefront.home') }}">
+            Store
+        </a>
+
+        <a href="{{ url_for('admin_auth.login') }}">
+            Admin
+        </a>
+
+    </nav>
+
+</header>
+
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h2>
+            Welcome to Our Store
+        </h2>
+
+        <p>
+            Browse products, add items to your cart,
+            and place your order.
+        </p>
+
+
+        <div class="buttons">
+
+            <a
+                class="button store-button"
+                href="{{ url_for('storefront.home') }}">
+
+                Visit Store
+
+            </a>
+
+
+            <a
+                class="button admin-button"
+                href="{{ url_for('admin_auth.login') }}">
+
+                Admin Login
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer class="footer">
+
+    E-Commerce Application
+
+</footer>
+
+
+</body>
+
+</html>

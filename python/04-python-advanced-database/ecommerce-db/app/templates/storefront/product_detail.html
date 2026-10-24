@@ -1,0 +1,54 @@
+{% extends "storefront/base_store.html" %}
+
+{% block title %}{{ product.name }} | My Store{% endblock %}
+
+{% block content %}
+<div class="product-card common-block">
+    <h1>{{ product.name }}</h1>
+
+    <p>{{ product.description or "No description available." }}</p>
+
+    <p>
+        Category:
+        {% if product.category %}
+        <a href="{{ url_for(
+                'storefront.category_products',
+                category_id=product.category.id
+            ) }}">
+            {{ product.category.name }}
+        </a>
+        {% else %}
+        Uncategorized
+        {% endif %}
+    </p>
+
+    <p class="price">₹{{ "%.2f"|format(product.price) }}</p>
+
+    <p>
+        {% if product.quantity > 0 %}
+        Available stock: {{ product.quantity }}
+        {% else %}
+        Out of stock
+        {% endif %}
+    </p>
+
+    {% if product.quantity > 0 %}
+    <form method="POST" action="{{ url_for('cart.add_to_cart', product_id=product.id) }}">
+
+        <label for="quantity">Quantity</label>
+
+        <input type="number" id="quantity" name="quantity" value="1" min="1" max="{{ product.quantity }}" required>
+
+        <button class="button" type="submit" {% if product.quantity < 1 %}disabled{% endif %}>
+            {% if product.quantity > 0 %}
+            Add to Cart
+            {% else %}
+            Out of Stock
+            {% endif %}
+        </button>
+    </form>
+    {% endif %}
+
+    <a href="{{ url_for('storefront.home') }}">Continue Shopping</a>
+</div>
+{% endblock %}

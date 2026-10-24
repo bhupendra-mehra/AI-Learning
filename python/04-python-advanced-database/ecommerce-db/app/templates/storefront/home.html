@@ -1,0 +1,64 @@
+{% extends "storefront/base_store.html" %}
+
+{% block title %}Home | My Store{% endblock %}
+
+{% block content %}
+<section>
+    <h1>Welcome to My Store</h1>
+    <p>Browse our categories and discover our products.</p>
+</section>
+
+<section>
+    <h2>Shop by Category</h2>
+
+    <div class="product-grid">
+        {% for category in categories %}
+            <div class="product-card">
+                <h3>{{ category.name }}</h3>
+                <p>{{ category.description or "Explore our products." }}</p>
+
+                <a class="button"
+                   href="{{ url_for(
+                       'storefront.category_products',
+                       category_id=category.id
+                   ) }}">
+                    View Products
+                </a>
+            </div>
+        {% else %}
+            <p>No categories available.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section>
+    <h2>All Products</h2>
+
+    <div class="product-grid">
+        {% for product in products %}
+            <div class="product-card">
+                <h3>{{ product.name }}</h3>
+
+                <p>{{ product.description or "" }}</p>
+
+                <p class="price">₹{{ "%.2f"|format(product.price) }}</p>
+
+                <p>
+                    Category:
+                    {{ product.category.name if product.category else "Uncategorized" }}
+                </p>
+
+                <a class="button"
+                   href="{{ url_for(
+                       'storefront.product_detail',
+                       product_id=product.id
+                   ) }}">
+                    View Details
+                </a>
+            </div>
+        {% else %}
+            <p>No products available.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

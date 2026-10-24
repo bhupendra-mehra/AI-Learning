@@ -1,0 +1,56 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}
+{% if customer %}
+Edit Customer
+{% else %}
+Add Customer
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<h2>
+    {% if customer %}
+    Edit Customer
+    {% else %}
+    Add Customer
+    {% endif %}
+</h2>
+<div class="admin-card">
+    <form class="admin-form" method="POST" action="{% if customer %}
+          {{ url_for('admin_customers.edit_customer',
+                     customer_id=customer.id) }}
+      {% else %}
+          {{ url_for('admin_customers.create_customer') }}
+      {% endif %}">
+        <div class="form-group">
+            <label for="name">Customer Name</label>
+            <input type="text" id="name" name="name" value="{{ request.form.get(
+        'name',
+        customer.name if customer else ''
+        ) }}" placeholder="Enter customer name" required maxlength="100">
+        </div>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" value="{{ request.form.get(
+        'email',
+        customer.email if customer else ''
+        ) }}" placeholder="Enter email address" required maxlength="255">
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                {% if customer %}
+                Update Customer
+                {% else %}
+                Create Customer
+                {% endif %}
+            </button>
+
+            <a href="{{ url_for('admin_customers.list_customers') }}" class="btn btn-outline">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

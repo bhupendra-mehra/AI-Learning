@@ -1,0 +1,798 @@
+/* =========================================================
+           RESET
+        ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background: #f3f4f6;
+    color: #1f2937;
+    line-height: 1.5;
+}
+
+a {
+    color: inherit;
+}
+
+
+/* =========================================================
+           ADMIN HEADER
+        ========================================================= */
+
+.admin-header {
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 30px;
+
+    background: #111827;
+    color: white;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.admin-header h1 {
+    margin: 0;
+
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+.admin-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.admin-user span {
+    font-size: 14px;
+    color: #d1d5db;
+}
+
+
+/* =========================================================
+           LOGOUT BUTTON
+        ========================================================= */
+
+.logout-button {
+    border: none;
+
+    background: #dc2626;
+    color: white;
+
+    padding: 8px 15px;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.1s ease;
+}
+
+.logout-button:hover {
+    background: #b91c1c;
+}
+
+.logout-button:active {
+    transform: translateY(1px);
+}
+
+
+/* =========================================================
+           MAIN ADMIN LAYOUT
+        ========================================================= */
+
+.admin-layout {
+    display: flex;
+
+    min-height: calc(100vh - 65px);
+}
+
+
+/* =========================================================
+           SIDEBAR
+        ========================================================= */
+
+.admin-sidebar {
+    width: 230px;
+
+    flex-shrink: 0;
+
+    background: #1f2937;
+
+    padding: 20px 0;
+
+    border-right: 1px solid #374151;
+}
+
+.admin-sidebar a {
+    display: block;
+
+    color: #d1d5db;
+
+    text-decoration: none;
+
+    padding: 12px 25px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    border-left: 3px solid transparent;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.admin-sidebar a:hover {
+    background: #374151;
+    color: white;
+
+    border-left-color: #60a5fa;
+}
+
+
+/* =========================================================
+           CONTENT
+        ========================================================= */
+
+.admin-content {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 30px;
+}
+
+.page-title {
+    margin: 0 0 25px;
+
+    font-size: 25px;
+    font-weight: 600;
+
+    color: #111827;
+}
+
+.page-subtitle {
+    margin-top: -15px;
+    margin-bottom: 25px;
+
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+           CONTENT CARD
+        ========================================================= */
+
+.admin-card {
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 8px;
+
+    padding: 24px;
+
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.05);
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+           PAGE ACTIONS
+        ========================================================= */
+
+.page-actions {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.page-actions-left,
+.page-actions-right {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+/* =========================================================
+           BUTTONS
+        ========================================================= */
+
+.btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 38px;
+
+    padding: 8px 15px;
+
+    border: 1px solid transparent;
+    border-radius: 6px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.1s ease;
+}
+
+.btn:hover {
+    text-decoration: none;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn-primary {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+}
+
+.btn-secondary {
+    background: #6b7280;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #4b5563;
+}
+
+.btn-success {
+    background: #16a34a;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #15803d;
+}
+
+.btn-danger {
+    background: #dc2626;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #b91c1c;
+}
+
+.btn-warning {
+    background: #d97706;
+    color: white;
+}
+
+.btn-warning:hover {
+    background: #b45309;
+}
+
+.btn-outline {
+    background: white;
+
+    color: #374151;
+
+    border-color: #d1d5db;
+}
+
+.btn-outline:hover {
+    background: #f9fafb;
+}
+
+
+/* =========================================================
+           TABLE
+        ========================================================= */
+
+.table-container {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 8px;
+
+    background: white;
+}
+
+.admin-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    font-size: 14px;
+}
+
+.admin-table th {
+    padding: 13px 15px;
+
+    text-align: left;
+
+    background: #f9fafb;
+
+    color: #374151;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    white-space: nowrap;
+}
+
+.admin-table td {
+    padding: 13px 15px;
+
+    color: #4b5563;
+
+    border-bottom: 1px solid #f0f0f0;
+
+    vertical-align: middle;
+}
+
+.admin-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+.admin-table td.actions {
+    white-space: nowrap;
+}
+
+.table-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+
+/* =========================================================
+           EMPTY TABLE STATE
+        ========================================================= */
+
+.empty-state {
+    padding: 45px 20px;
+
+    text-align: center;
+
+    color: #6b7280;
+}
+
+.empty-state h3 {
+    margin: 0 0 8px;
+
+    color: #374151;
+
+    font-size: 17px;
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+           FORMS
+        ========================================================= */
+
+.admin-form {
+    max-width: 800px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #374151;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-control,
+.admin-form input[type="text"],
+.admin-form input[type="email"],
+.admin-form input[type="password"],
+.admin-form input[type="number"],
+.admin-form input[type="date"],
+.admin-form input[type="datetime-local"],
+.admin-form input[type="url"],
+.admin-form select,
+.admin-form textarea {
+    width: 100%;
+
+    padding: 10px 12px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 6px;
+
+    background: white;
+
+    color: #1f2937;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.admin-form textarea {
+    min-height: 120px;
+
+    resize: vertical;
+}
+
+.form-control:focus,
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.admin-form input[type="checkbox"],
+.admin-form input[type="radio"] {
+    width: auto;
+}
+
+.form-help {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #6b7280;
+
+    font-size: 12px;
+}
+
+.form-error {
+    margin-top: 5px;
+
+    color: #dc2626;
+
+    font-size: 13px;
+}
+
+.form-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding-top: 10px;
+}
+
+
+/* =========================================================
+           FORM GRID
+        ========================================================= */
+
+.form-row {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+           FLASH MESSAGES
+        ========================================================= */
+
+.flash-message {
+    padding: 12px 15px;
+
+    margin-bottom: 20px;
+
+    border-radius: 6px;
+
+    border: 1px solid #bae6fd;
+
+    background: #e0f2fe;
+
+    color: #075985;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+           STATUS BADGES
+        ========================================================= */
+
+.badge {
+    display: inline-block;
+
+    padding: 4px 9px;
+
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.badge-danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.badge-warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.badge-info {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.badge-secondary {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+
+/* =========================================================
+           DASHBOARD
+        ========================================================= */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(200px, 1fr));
+
+    gap: 20px;
+}
+
+.dashboard-card {
+    background: white;
+
+    padding: 25px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-card h3 {
+    margin: 0 0 10px;
+
+    color: #374151;
+
+    font-size: 15px;
+}
+
+.dashboard-card .stat {
+    margin: 0 0 15px;
+
+    font-size: 28px;
+    font-weight: 700;
+
+    color: #111827;
+}
+
+.dashboard-card a {
+    color: #2563eb;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.dashboard-card a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+           PAGINATION
+        ========================================================= */
+
+.pagination {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin-top: 20px;
+}
+
+.pagination a,
+.pagination span {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 36px;
+    height: 36px;
+
+    padding: 0 10px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 5px;
+
+    background: white;
+
+    color: #374151;
+
+    text-decoration: none;
+
+    font-size: 13px;
+}
+
+.pagination a:hover {
+    background: #f3f4f6;
+}
+
+.pagination .active {
+    background: #2563eb;
+
+    border-color: #2563eb;
+
+    color: white;
+}
+
+
+/* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+@media (max-width: 768px) {
+
+    .admin-header {
+        padding: 0 15px;
+    }
+
+    .admin-header h1 {
+        font-size: 18px;
+    }
+
+    .admin-user span {
+        display: none;
+    }
+
+    .admin-layout {
+        flex-direction: column;
+    }
+
+    .admin-sidebar {
+        width: 100%;
+
+        display: flex;
+
+        overflow-x: auto;
+
+        padding: 0;
+
+        border-right: none;
+    }
+
+    .admin-sidebar a {
+        flex-shrink: 0;
+
+        padding: 12px 16px;
+
+        border-left: none;
+
+        border-bottom: 3px solid transparent;
+    }
+
+    .admin-sidebar a:hover {
+        border-left: none;
+
+        border-bottom-color: #60a5fa;
+    }
+
+    .admin-content {
+        padding: 20px 15px;
+    }
+
+    .page-title {
+        font-size: 22px;
+    }
+
+    .page-actions {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-card {
+        padding: 18px;
+    }
+
+    .table-container {
+        border-radius: 6px;
+    }
+}

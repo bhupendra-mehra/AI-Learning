@@ -1,0 +1,258 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}
+    Manage Order #{{ order.id }}
+{% endblock %}
+
+
+{% block content %}
+
+<!-- =========================================================
+     PAGE HEADER
+========================================================= -->
+
+<div class="page-actions">
+
+    <div>
+        <h2 class="page-title">
+            Manage Order #{{ order.id }}
+        </h2>
+
+        <p class="page-subtitle">
+            View order details and update the order status.
+        </p>
+    </div>
+
+    <div class="page-actions-right">
+
+        <a
+            href="{{ url_for('admin_orders.list_orders') }}"
+            class="btn btn-outline">
+
+            Back to Orders
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     ORDER SUMMARY
+========================================================= -->
+
+<div class="dashboard-grid">
+
+    <div class="dashboard-card">
+
+        <h3>Customer ID</h3>
+
+        <p class="stat">
+            {{ order.customer_id }}
+        </p>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+        <h3>Order Status</h3>
+
+        <p class="stat">
+            {{ order.status|capitalize }}
+        </p>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+        <h3>Order Total</h3>
+
+        <p class="stat">
+            ₹{{ "%.2f"|format(order.total_amount) }}
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     ORDER ITEMS
+========================================================= -->
+
+<div class="admin-card">
+
+    <h2>
+        Order Items
+    </h2>
+
+    <div class="table-container">
+
+        <table class="admin-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Product ID
+                    </th>
+
+                    <th>
+                        Quantity
+                    </th>
+
+                    <th>
+                        Unit Price
+                    </th>
+
+                    <th>
+                        Subtotal
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for item in order.items %}
+
+                <tr>
+
+                    <td>
+                        {{ item.product_id }}
+                    </td>
+
+                    <td>
+                        {{ item.quantity }}
+                    </td>
+
+                    <td>
+                        ₹{{ "%.2f"|format(item.unit_price) }}
+                    </td>
+
+                    <td>
+                        ₹{{ "%.2f"|format(item.subtotal) }}
+                    </td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+
+                    <td colspan="4">
+
+                        <div class="empty-state">
+
+                            <h3>
+                                No items found
+                            </h3>
+
+                            <p>
+                                This order does not contain any items.
+                            </p>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     UPDATE ORDER STATUS
+========================================================= -->
+
+<div class="admin-card">
+
+    <h2>
+        Update Order Status
+    </h2>
+
+    <p class="page-subtitle">
+        Change the current status of this order.
+    </p>
+
+
+    <form
+        method="POST"
+        action="{{ url_for(
+            'admin_orders.update_order_status',
+            order_id=order.id
+        ) }}"
+        class="admin-form">
+
+
+        <div class="form-group">
+
+            <label for="status">
+                Order Status
+            </label>
+
+            <select
+                id="status"
+                name="status"
+                class="form-control"
+                required>
+
+                {% for status in allowed_statuses %}
+
+                    <option
+                        value="{{ status }}"
+                        {% if status == order.status %}
+                            selected
+                        {% endif %}>
+
+                        {{ status|capitalize }}
+
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+
+        <div class="form-actions">
+
+            <button
+                type="submit"
+                class="btn btn-primary">
+
+                Update Status
+
+            </button>
+
+
+            <a
+                href="{{ url_for('admin_orders.list_orders') }}"
+                class="btn btn-outline">
+
+                Cancel
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}Admin Panel{% endblock %}
+    </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/backend.css') }}">
+    {% block head %}{% endblock %}
+</head>
+
+
+<body>
+
+
+<!-- =============================================================
+     ADMIN HEADER
+============================================================= -->
+
+<header class="admin-header">
+
+    <h1>Admin Panel</h1>
+
+    <div class="admin-user">
+
+        <span>
+            Welcome,
+            {{ session.get("admin_username", "Administrator") }}
+        </span>
+
+        <form method="POST"
+              action="{{ url_for('admin_auth.logout') }}">
+
+            <button
+                type="submit"
+                class="logout-button">
+
+                Logout
+
+            </button>
+
+        </form>
+
+    </div>
+
+</header>
+
+
+<!-- =============================================================
+     ADMIN LAYOUT
+============================================================= -->
+
+<div class="admin-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="admin-sidebar">
+
+        <a href="{{ url_for('admin.home') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('admin_customers.list_customers') }}">
+            Customers
+        </a>
+
+        <a href="{{ url_for('admin_categories.list_categories') }}">
+            Categories
+        </a>
+
+        <a href="{{ url_for('admin_products.list_products') }}">
+            Products
+        </a>
+
+        <a href="{{ url_for('admin_orders.list_orders') }}">
+            Orders
+        </a>
+
+        <a href="{{ url_for('storefront.home') }}">
+            View Store
+        </a>
+
+    </aside>
+
+
+    <!-- CONTENT -->
+
+    <main class="admin-content">
+
+
+        <!-- FLASH MESSAGES -->
+
+        {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="flash-message">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- PAGE CONTENT -->
+
+        {% block content %}{% endblock %}
+
+
+    </main>
+
+</div>
+
+
+</body>
+</html>

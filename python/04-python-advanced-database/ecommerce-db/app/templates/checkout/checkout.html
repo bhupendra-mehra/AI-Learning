@@ -1,0 +1,39 @@
+{% extends "storefront/base_store.html" %}
+
+{% block content %}
+<div class="checkout-container">
+    <h1>Review Your Order</h1>
+
+    <table class="cart-table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>₹{{ "%.2f"|format(item.product.price) }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>₹{{ "%.2f"|format(item.subtotal) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="checkout-summary">
+        <h2>Total: ₹{{ "%.2f"|format(total) }}</h2>
+        <p>Payment and shipping are not included in this learning exercise.</p>
+
+        <form method="POST" action="{{ url_for('checkout.checkout') }}">
+            <button class="button" type="submit">Confirm Order</button>
+        </form>
+
+        <a href="{{ url_for('cart.view_cart') }}">Back to Cart</a>
+    </div>
+</div>
+{% endblock %}

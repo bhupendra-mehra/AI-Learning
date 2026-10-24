@@ -1,0 +1,94 @@
+{% extends "storefront/base_store.html" %}
+
+{% block content %}
+<div class="cart-container">
+    <h1>Shopping Cart</h1>
+
+    {% if cart_items %}
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in cart_items %}
+                    <tr>
+                        <td>
+                            <a href="{{ url_for(
+                                'storefront.product_detail',
+                                product_id=item.product.id
+                            ) }}">
+                                {{ item.product.name }}
+                            </a>
+                        </td>
+
+                        <td>
+                            ₹{{ "%.2f"|format(item.product.price) }}
+                        </td>
+
+                        <td>
+                            <form method="POST"
+                                  action="{{ url_for(
+                                      'cart.update_cart',
+                                      product_id=item.product.id
+                                  ) }}">
+                                <input
+                                    type="number"
+                                    name="quantity"
+                                    value="{{ item.quantity }}"
+                                    min="1"
+                                    max="{{ item.product.stock }}"
+                                    required
+                                >
+                                <button type="submit">Update</button>
+                            </form>
+                        </td>
+
+                        <td>
+                            ₹{{ "%.2f"|format(item.subtotal) }}
+                        </td>
+
+                        <td>
+                            <form method="POST"
+                                  action="{{ url_for(
+                                      'cart.remove_from_cart',
+                                      product_id=item.product.id
+                                  ) }}">
+                                <button type="submit">
+                                    Remove
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="cart-total">
+            <h2>
+                Cart Total: ₹{{ "%.2f"|format(total) }}
+            </h2>
+
+            <a href="{{ url_for('storefront.home') }}">
+                Continue Shopping
+            </a>
+
+            <a href="{{ url_for('checkout.checkout') }}"
+            class="checkout-button">
+                Proceed to Checkout
+            </a>
+        </div>
+    {% else %}
+        <p>Your shopping cart is empty.</p>
+        <a href="{{ url_for('storefront.home') }}">
+            Browse Products
+        </a>
+    {% endif %}
+</div>
+{% endblock %}

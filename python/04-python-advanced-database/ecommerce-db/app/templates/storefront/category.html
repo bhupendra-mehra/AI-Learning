@@ -1,0 +1,39 @@
+{% extends "storefront/base_store.html" %}
+
+{% block title %}{{ category.name }} | My Store{% endblock %}
+
+{% block content %}
+<h1>{{ category.name }}</h1>
+
+<p>{{ category.description or "Browse products in this category." }}</p>
+
+<div class="product-grid">
+    {% for product in products %}
+        <div class="product-card">
+            <h3>{{ product.name }}</h3>
+
+            <p>{{ product.description or "" }}</p>
+
+            <p class="price">₹{{ "%.2f"|format(product.price) }}</p>
+
+            <p>
+                {% if product.quantity > 0 %}
+                    <span>In stock: {{ product.quantity }}</span>
+                {% else %}
+                    <span>Out of stock</span>
+                {% endif %}
+            </p>
+
+            <a class="button"
+               href="{{ url_for(
+                   'storefront.product_detail',
+                   product_id=product.id
+               ) }}">
+                View Details
+            </a>
+        </div>
+    {% else %}
+        <p>No products found in this category.</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,235 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}
+Customers
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-actions">
+
+    <div>
+
+        <h2 class="page-title">
+            Customers
+        </h2>
+
+        <p class="page-subtitle">
+            Manage registered customers
+        </p>
+
+    </div>
+
+
+    <div class="page-actions-right">
+
+        <a href="{{ url_for('admin_customers.create_customer') }}" class="btn btn-primary">
+
+            Add Customer
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="admin-card">
+
+    <div class="table-container">
+
+        <table class="admin-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Name</th>
+
+                    <th>Email</th>
+
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for customer in pagination.items %}
+
+                <tr>
+
+                    <td>
+                        {{ customer.id }}
+                    </td>
+
+                    <td>
+                        {{ customer.name }}
+                    </td>
+
+                    <td>
+                        {{ customer.email }}
+                    </td>
+
+                    <td class="actions">
+
+                        <div class="table-actions">
+
+                            <a href="{{ url_for(
+                                    'admin_customers.edit_customer',
+                                    customer_id=customer.id
+                                ) }}" class="btn btn-outline">
+
+                                Edit
+
+                            </a>
+
+                            <a href="{{ url_for(
+                                    'admin_customers.delete_customer',
+                                    customer_id=customer.id
+                                ) }}" class="btn btn-danger">
+
+                                Delete
+
+                            </a>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+
+                    <td colspan="4">
+
+                        <div class="empty-state">
+
+                            <h3>
+                                No customers found
+                            </h3>
+
+                            <p>
+                                There are currently no customers
+                            </p>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- Pagination information -->
+
+    {% if pagination.total > 0 %}
+
+    <div class="page-subtitle">
+
+        Showing
+        {{ pagination.first }}
+        -
+        {{ pagination.last }}
+        of
+        {{ pagination.total }}
+        customers
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- Pagination navigation -->
+
+    {% if pagination.pages > 1 %}
+
+    <div class="pagination">
+
+        {% if pagination.has_prev %}
+
+        <a href="{{ url_for(
+                        'admin_customers.list_customers',
+                        page=pagination.prev_num
+                    ) }}">
+
+            Previous
+
+        </a>
+
+        {% endif %}
+
+
+        {% for page_num in pagination.iter_pages(
+        left_edge=1,
+        left_current=2,
+        right_current=2,
+        right_edge=1
+        ) %}
+
+        {% if page_num %}
+
+        {% if page_num == pagination.page %}
+
+        <span class="active">
+            {{ page_num }}
+        </span>
+
+        {% else %}
+
+        <a href="{{ url_for(
+                                'admin_customers.list_customers',
+                                page=page_num
+                            ) }}">
+
+            {{ page_num }}
+
+        </a>
+
+        {% endif %}
+
+        {% else %}
+
+        <span>
+            ...
+        </span>
+
+        {% endif %}
+
+        {% endfor %}
+
+
+        {% if pagination.has_next %}
+
+        <a href="{{ url_for(
+                        'admin_customers.list_customers',
+                        page=pagination.next_num
+                    ) }}">
+
+            Next
+
+        </a>
+
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

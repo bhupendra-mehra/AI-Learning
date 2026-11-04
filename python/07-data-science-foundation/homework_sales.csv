@@ -1,0 +1,9 @@
+OrderID,Product,Category,Price,Quantity,Status
+201,Laptop,Electronics,55000,1,Completed
+202,Mouse,Accessories,500,4,Completed
+203,Keyboard,Accessories,1200,2,Pending
+204,Monitor,Electronics,8500,1,Completed
+205,Mouse,Accessories,500,3,Pending
+206,Laptop,Electronics,55000,1,Completed
+207,Webcam,Accessories,,2,Pending
+208,Headphones,Accessories,2500,,Completed

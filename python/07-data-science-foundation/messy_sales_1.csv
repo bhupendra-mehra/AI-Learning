@@ -1,0 +1,6 @@
+OrderID,Product,Price,Quantity
+101,Laptop,55000,1
+102,Mouse,500,4
+103,,1200,2
+104,Monitor,,1
+105,Keyboard,1200,

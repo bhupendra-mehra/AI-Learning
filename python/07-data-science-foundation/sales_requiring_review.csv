@@ -1,0 +1,4 @@
+OrderID,Product,Category,Price,Quantity,Status
+204,Monitor,Electronics,,1.0,Completed
+206,Webcam,Accessories,2200.0,,Completed
+208,Monitor,Electronics,-100.0,1.0,Pending
